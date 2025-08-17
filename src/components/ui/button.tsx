@@ -4,31 +4,32 @@ import * as React from "react";
 import { cn } from "../../lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         primary:
-          "border border-input bg-secondary text-foreground hover:bg-accent hover:bg-secondary",
+          "border border-border bg-accent-blue text-text-primary hover:bg-primary hover:text-text",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+          "border border-border bg-background hover:bg-accent-blue/10 hover:text-text-primary",
         outline_primary:
-          "border-2 border-secondary font-semibold text-secondary hover:bg-accent hover:bg-secondary-500 hover:text-foreground",
+          "border-2 border-primary font-semibold text-primary hover:bg-accent-blue/10 hover:text-text-primary",
         secondary:
-          "bg-gradient-primary text-white font-semibold hover:bg-gradient-primary hover:opacity-90 ",
+          "bg-gradient-to-r from-primary to-secondary text-text font-semibold hover:opacity-90",
         dashed:
-          "border border-dashed border-gray-400 bg-transparent txt-secondary hover:bg-gray-100",
-        icon: "hover:text-secondary [&_svg]:size-5 justify-start hover:bg-gray-100 ",
+          "border border-dashed border-border bg-transparent text-text-secondary hover:bg-accent-blue/10",
+        icon: "hover:text-primary [&_svg]:size-5 justify-start hover:bg-accent-blue/10",
         outline_grey:
-          "border-2 border-custom-bd-secondary text-custom-txt-primary font-semibold hover:bg-gray-100",
+          "border-2 border-border text-text-muted font-semibold hover:bg-accent-blue/10",
         select_btn:
-          "border bg-gray-300 text-grey-800 font-semibold hover:brighness-50 hover:opacity-90 ",
+          "border bg-secondary text-text-primary font-semibold hover:opacity-80",
         destructive:
-          "bg-red-500 text-white shadow-sm hover:bg-red-600 focus-visible:ring-red-500/30 dark:bg-red-500 dark:hover:bg-red-400 dark:focus-visible:ring-red-500/50",
-        ghost: "bg-transparent text-secondary hover:bg-gray-100 font-medium",
+          "bg-accent-error text-text shadow-sm hover:bg-accent-error/80 focus-visible:ring-accent-error/30",
+        ghost:
+          "bg-transparent text-primary hover:bg-accent-blue/10 font-medium",
       },
       size: {
-        default: "h-9 px-4 py-2",
+        default: "h-10 px-4 py-3",
         sm: "h-8 rounded-md px-3 text-xs",
         lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",
@@ -67,7 +68,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = getComponentWithType(asChild);
 
     const computedClassName = isUseVariant
-      ? buttonVariants({ variant, size, className }) // use variant-based styles
+      ? buttonVariants({ variant, size, className })
       : cn(className);
 
     return <Comp className={computedClassName} ref={ref} {...props} />;

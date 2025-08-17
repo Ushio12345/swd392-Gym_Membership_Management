@@ -1,18 +1,16 @@
 import { Route, Routes } from "react-router-dom";
-import AuthLayout from "../layouts/auth/AuthLayout";
-import Login from "../pages/auth/Login";
-import Register from "../pages/auth/Register";
 import Home from "../pages/home/Home";
 import ROUTE_PATH from "../constant/route/route";
+import Auth from "../pages/auth/Auth";
+import NotFound from "../pages/not-found/Not-Found";
 
 const MainRoutes = () => {
   return (
     <Routes>
       <Route path={ROUTE_PATH.HOME} element={<Home />} />
-      <Route path={ROUTE_PATH.AUTH} element={<AuthLayout />}>
-        {/* <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} /> */}
-      </Route>
+      <Route path={ROUTE_PATH.AUTH} element={<Auth />} />
+
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
