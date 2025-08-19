@@ -35,12 +35,24 @@ export default {
     "spin-slow": "spin 1.4s linear infinite",
     "spin-slower": "spin 2s linear infinite",
   },
+  container: {
+    center: true,
+    padding: "1rem",
+    screens: {
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
+    },
+  },
+
   plugins: [
     function ({ addBase, theme }) {
       addBase({
         body: {
-          color: theme("colors.text.DEFAULT"), // chữ mặc định
-          backgroundColor: theme("colors.background.DEFAULT"), // nền mặc định
+          color: theme("colors.text.DEFAULT"),
+          backgroundColor: theme("colors.background"),
         },
       });
     },

@@ -18,10 +18,10 @@ import Register from "./patials/Register";
 
 const Auth = () => {
   return (
-    <div className="min-h-screen relative overflow-hidden flex flex-col items-center py-10 bg-background text-primary">
+    <div className="  min-h-screen relative overflow-y-auto flex flex-col items-center py-10 bg-background text-primary ">
       {/* Background image */}
       <div
-        className="absolute inset-0 bg-cover bg-center z-0"
+        className="absolute inset-0 bg-cover bg-center z-0 "
         style={{ backgroundImage: `url(${Bg})` }}
       />
       {/* Overlay */}
@@ -43,7 +43,7 @@ const Auth = () => {
       </header>
 
       {/* Card */}
-      <Card className="dark relative z-10 w-full max-w-md bg-card border border-border shadow-lg">
+      <Card className=" relative z-10 w-full max-w-md bg-card border border-border shadow-lg">
         <CardHeader>
           <CardTitle className="text-center text-text-primary">
             Chào mừng!

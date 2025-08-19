@@ -1,5 +1,13 @@
+import Banner from "./patials/Banner";
+
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <>
+      <section>
+        <Banner />
+      </section>
+    </>
+  );
 };
 
 export default Home;

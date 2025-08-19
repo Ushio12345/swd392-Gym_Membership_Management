@@ -9,6 +9,8 @@ import { authSchema } from "../schema/auth";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Link } from "react-router-dom";
+import { MoveLeft } from "lucide-react";
 
 type FormData = yup.InferType<typeof authSchema>;
 
@@ -78,6 +80,17 @@ const Login = () => {
               "Đăng nhập"
             )}
           </Button>
+        </div>
+        <div className="text-text-secondary font-thin italic text-sm flex justify-between ">
+          <Link
+            to={"/"}
+            className="flex  items-center gap-2 hover:text-accent-blue"
+          >
+            {" "}
+            <MoveLeft />
+            Trở về trang chủ
+          </Link>{" "}
+          <p className="hover:underline cursor-pointer"> Quên mật khẩu?</p>
         </div>
       </form>
 
