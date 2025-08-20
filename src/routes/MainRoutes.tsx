@@ -6,6 +6,7 @@ import NotFound from "../pages/not-found/Not-Found";
 import MainLayout from "../layout/Layout";
 import GymPackagePage from "../pages/gym-package/page"
 import BowlingPackagePage from  "../pages/bowling-package/page";
+import PackagePlan from "../pages/package-plan/page"
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "/bowling-package",
         element: <BowlingPackagePage />   
+      },
+      {
+        path: "/package-plan",
+        element: <PackagePlan />   
       }
     ]
   },

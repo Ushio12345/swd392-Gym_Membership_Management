@@ -77,12 +77,12 @@ const Banner = () => {
                 Khám phá các gói tập của chúng tôi ngay hôm nay để nhận những ưu
                 đãi hấp dẫn
               </p>
-              <a
-                href="#packages"
+              <Link
+                to="/package-plan"
                 className="inline-block mt-2 px-5 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 transition"
               >
                 Khám phá gói tập
-              </a>
+              </Link>
             </div>
           </div>
         </div>
