@@ -197,12 +197,12 @@ const GymPackagePage = () => {
             <CardHeader className="text-center">
               <User className="h-12 w-12 text-blue-500 mx-auto mb-4" />
               <CardTitle className="text-black">Đăng Nhập Để Tiếp Tục</CardTitle>
-              <CardDescription className="text-black">Bạn cần đăng ký để đặt gói tập gym</CardDescription>
+              <CardDescription className="text-black">Bạn cần đăng nhập để đặt gói tập gym</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <Link 
               to="/auth"
-              className="w-full text-black">Đăng Ký
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white">Đăng Nhập
               </Link>
               <Button variant="outline" className="w-full bg-transparent text-black" onClick={() => setShowLoginPrompt(false)}>
                 Hủy
