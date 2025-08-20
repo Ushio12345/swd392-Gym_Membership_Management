@@ -59,7 +59,7 @@ const BowlingPackagePage = () => {
       hours: usageHours,
       totalPrice,
     })
-    alert("Đặt gói bowling thành công!")
+    alert("Bowling package booked successfully!")
   }
 
   return (
@@ -69,7 +69,7 @@ const BowlingPackagePage = () => {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-2 text-white hover:text-gray-300">
             <ArrowLeft className="w-5 h-5" />
-            <span>Quay lại</span>
+            <span>Back</span>
           </Link>
 
           <div className="flex items-center space-x-2">
@@ -82,126 +82,131 @@ const BowlingPackagePage = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        <div className="mx-auto" style={{maxWidth : 900}}>
+        <div className="w-full">
           <Card className="bg-white/10 backdrop-blur-sm border-gray-600">
             <CardHeader>
-              <CardTitle className="text-white text-2xl text-center">Đặt Gói Bowling</CardTitle>
+              <CardTitle className="text-white text-2xl text-center">Buy Bowling Package</CardTitle>
             </CardHeader>
 
             <CardContent className="space-y-6">
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Customer Information */}
-                <div className="space-y-4">
-                  <h3 className="text-white text-lg font-semibold">Thông tin khách hàng</h3>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {/* Customer Information */}
+                  <div className="space-y-4">
+                    <h3 className="text-white text-lg font-semibold">Customer Information</h3>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="fullName" className="text-gray-300">
-                      Họ và tên
-                    </Label>
-                    <Input
-                      id="fullName"
-                      value={formData.fullName}
-                      onChange={(e) => handleInputChange("fullName", e.target.value)}
-                      className="bg-gray-800 border-gray-600 text-white"
-                      placeholder="Nhập họ và tên"
-                      required
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="phone" className="text-gray-300">
-                      Số điện thoại
-                    </Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      value={formData.phone}
-                      onChange={(e) => handleInputChange("phone", e.target.value)}
-                      className="bg-gray-800 border-gray-600 text-white"
-                      placeholder="Nhập số điện thoại"
-                      required
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-gray-300">
-                      Email
-                    </Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => handleInputChange("email", e.target.value)}
-                      className="bg-gray-800 border-gray-600 text-white"
-                      placeholder="Nhập email"
-                      required
-                    />
-                  </div>
-                </div>
-
-                {/* Center Selection */}
-                <div className="space-y-4">
-                  <h3 className="text-white text-lg font-semibold">Chọn trung tâm</h3>
-
-                  <div className="space-y-2">
-                    <Label className="text-gray-300">Tên Center</Label>
-                    <Select value={selectedCenter} onValueChange={setSelectedCenter}>
-                      <SelectTrigger className="bg-gray-800 border-gray-600 text-white">
-                        <SelectValue placeholder="Chọn center" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-gray-800 border-gray-600">
-                        <SelectItem value="center-a" className="text-white">
-                          Center A
-                        </SelectItem>
-                        <SelectItem value="center-b" className="text-white">
-                          Center B
-                        </SelectItem>
-                        <SelectItem value="center-c" className="text-white">
-                          Center C
-                        </SelectItem>
-                        <SelectItem value="center-d" className="text-white">
-                          Center D
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {selectedCenterData && (
-                    <div className="bg-gray-800/50 p-4 rounded-lg">
-                      <p className="text-gray-300">
-                        <span className="font-semibold">Khung thời gian hoạt động:</span> {selectedCenterData.hours}
-                      </p>
-                      <p className="text-gray-300">
-                        <span className="font-semibold">Giá:</span>{" "}
-                        {selectedCenterData.pricePerHour.toLocaleString("vi-VN")} VNĐ/giờ
-                      </p>
+                    <div className="space-y-2">
+                      <Label htmlFor="fullName" className="text-gray-300">
+                        Full Name
+                      </Label>
+                      <Input
+                        id="fullName"
+                        value={formData.fullName}
+                        onChange={(e) => handleInputChange("fullName", e.target.value)}
+                        className="bg-gray-800 border-gray-600 text-white h-12 text-base"
+                        placeholder="Enter full name"
+                        required
+                      />
                     </div>
-                  )}
-                </div>
 
-                {/* Usage Hours */}
-                <div className="space-y-4">
-                  <h3 className="text-white text-lg font-semibold">Thời gian sử dụng</h3>
+                    <div className="space-y-2">
+                      <Label htmlFor="phone" className="text-gray-300">
+                        Phone Number
+                      </Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        value={formData.phone}
+                        onChange={(e) => handleInputChange("phone", e.target.value)}
+                        className="bg-gray-800 border-gray-600 text-white h-12 text-base"
+                        placeholder="Enter phone number"
+                        required
+                      />
+                    </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="hours" className="text-gray-300">
-                      Số giờ sử dụng
-                    </Label>
-                    <Select
-                      value={usageHours.toString()}
-                      onValueChange={(value) => setUsageHours(Number.parseInt(value))}
-                    >
-                      <SelectTrigger className="bg-gray-800 border-gray-600 text-white">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent className="bg-gray-800 border-gray-600">
-                        {[1, 2, 3, 4, 5, 6].map((hour) => (
-                          <SelectItem key={hour} value={hour.toString()} className="text-white">
-                            {hour} giờ
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <div className="space-y-2">
+                      <Label htmlFor="email" className="text-gray-300">
+                        Email
+                      </Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => handleInputChange("email", e.target.value)}
+                        className="bg-gray-800 border-gray-600 text-white h-12 text-base"
+                        placeholder="Enter email"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  {/* Center Selection and Usage Hours */}
+                  <div className="space-y-6">
+                    {/* Center Selection */}
+                    <div className="space-y-4">
+                      <h3 className="text-white text-lg font-semibold">Select Center</h3>
+
+                      <div className="space-y-2">
+                        <Label className="text-gray-300">Center Name</Label>
+                        <Select value={selectedCenter} onValueChange={setSelectedCenter}>
+                          <SelectTrigger className="bg-gray-800 border-gray-600 text-white h-12 text-base">
+                            <SelectValue placeholder="Choose center" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-gray-800 border-gray-600">
+                            <SelectItem value="center-a" className="text-white">
+                              Center A
+                            </SelectItem>
+                            <SelectItem value="center-b" className="text-white">
+                              Center B
+                            </SelectItem>
+                            <SelectItem value="center-c" className="text-white">
+                              Center C
+                            </SelectItem>
+                            <SelectItem value="center-d" className="text-white">
+                              Center D
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {selectedCenterData && (
+                        <div className="bg-gray-800/50 p-4 rounded-lg">
+                          <p className="text-gray-300">
+                            <span className="font-semibold">Operating Hours:</span> {selectedCenterData.hours}
+                          </p>
+                          <p className="text-gray-300">
+                            <span className="font-semibold">Price:</span>{" "}
+                            {selectedCenterData.pricePerHour.toLocaleString("vi-VN")} VND/hour
+                          </p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Usage Hours */}
+                    <div className="space-y-4">
+                      <h3 className="text-white text-lg font-semibold">Usage Time</h3>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="hours" className="text-gray-300">
+                          Number of Hours
+                        </Label>
+                        <Select
+                          value={usageHours.toString()}
+                          onValueChange={(value) => setUsageHours(Number.parseInt(value))}
+                        >
+                          <SelectTrigger className="bg-gray-800 border-gray-600 text-white h-12 text-base">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-gray-800 border-gray-600">
+                            {[1, 2, 3, 4, 5, 6].map((hour) => (
+                              <SelectItem key={hour} value={hour.toString()} className="text-white">
+                                {hour} hour{hour > 1 ? "s" : ""}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -209,17 +214,17 @@ const BowlingPackagePage = () => {
                 {totalPrice > 0 && (
                   <div className="bg-blue-500/20 border border-blue-500 p-4 rounded-lg">
                     <p className="text-blue-400 text-xl font-bold text-center">
-                      Tổng tiền: {totalPrice.toLocaleString("vi-VN")} VNĐ
+                      Total: {totalPrice.toLocaleString("vi-VN")} VND
                     </p>
                   </div>
                 )}
 
                 <Button
                   type="submit"
-                  className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3"
+                  className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 h-12 text-base"
                   disabled={!selectedCenter || !formData.fullName || !formData.phone || !formData.email}
                 >
-                  Đặt Gói Bowling
+                  Buy Bowling Package
                 </Button>
               </form>
             </CardContent>
