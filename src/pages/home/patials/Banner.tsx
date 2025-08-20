@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import BannerImage from "../../../assets/images/banner.jpg";
-
+import {Link} from "react-router-dom";
 const texts = ["giá rẻ", "tiện lợi", "đa dạng", "hấp dẫn"];
 
 const Banner = () => {
@@ -56,12 +56,16 @@ const Banner = () => {
             </p>
 
             <div className="mt-6 flex flex-col sm:flex-row gap-4">
-              <button className="px-6 py-3 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition">
+              <Link
+              to="/gym-package"
+              className="px-6 py-3 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition">
                 Đặt Gói Gym
-              </button>
-              <button className="px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition">
+              </Link>
+              <Link
+              to="/bowling-package"
+              className="px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition">
                 Đặt Gói Bowling
-              </button>
+              </Link>
             </div>
           </div>
 

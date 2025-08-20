@@ -4,6 +4,8 @@ import ROUTE_PATH from "../constant/route/route";
 import Auth from "../pages/auth/Auth";
 import NotFound from "../pages/not-found/Not-Found";
 import MainLayout from "../layout/Layout";
+import GymPackagePage from "../pages/gym-package/page"
+import BowlingPackagePage from  "../pages/bowling-package/page";
 
 const router = createBrowserRouter([
   {
@@ -13,7 +15,15 @@ const router = createBrowserRouter([
         path: ROUTE_PATH.HOME,
         element: <Home />,
       },
-    ],
+      {
+        path: "/gym-package",
+        element: <GymPackagePage />      
+      },
+      {
+        path: "/bowling-package",
+        element: <BowlingPackagePage />   
+      }
+    ]
   },
 
   {
