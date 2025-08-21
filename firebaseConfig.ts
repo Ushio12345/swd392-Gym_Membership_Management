@@ -4,12 +4,12 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC1C1xpRWv2nl_91R134zpyyKl1ljTpBGI",
-  authDomain: "gym-bowling-app.firebaseapp.com",
-  projectId: "gym-bowling-app",
-  storageBucket: "gym-bowling-app.firebasestorage.app",
-  messagingSenderId: "447804408653",
-  appId: "1:447804408653:web:c6efa77c84bb105f79ed04",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
