@@ -14,8 +14,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { MoveLeft } from "lucide-react";
 import { loginApi } from "../../../api/auth-api";
 import { useAuth } from "../../../context/authContext";
-import { signInWithGoogle } from "../../../api/google-login";
 import { toast } from "react-toastify";
+import { signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "../../../../firebaseConfig";
 
 type FormData = yup.InferType<typeof authSchema>;
 
@@ -54,28 +55,38 @@ const Login = () => {
     }
   };
 
-  const handleGoogleSignIn = async () => {
+  const handleGoogleLogin = async () => {
     try {
-      setLoading(true);
-      setError(null);
-      const res = await signInWithGoogle();
-      // if (res?.user && res?.token) {
-      //   login(res.user, res.token);
-      //   navigate("/");
-      // }
-      console.log(res);
-    } catch (err) {
-      const errorMessage =
-        err instanceof Error
-          ? err.message
-          : "Google login failed. Please try again.";
-      setError(errorMessage);
-      console.error("Google login failed:", err);
-    } finally {
-      setLoading(false);
+      console.log("🚀 Starting Google login...");
+
+      const result = await signInWithPopup(auth, googleProvider);
+      const idToken = await result.user.getIdToken();
+
+      // Test backend call
+      const response = await fetch(
+        "https://ae332185633a.ngrok-free.app/api/firebase-auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ idToken }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (data) {
+        navigate("/");
+        toast.success("Login successfull");
+        if (data?.token && data?.user) {
+          login(data.user, data.token);
+        }
+      }
+    } catch (error) {
+      console.error("Google login error:", error);
     }
   };
-
   return (
     <>
       {error && <p className="text-sm text-red-500 mb-4">{error}</p>}
@@ -141,7 +152,7 @@ const Login = () => {
           type="button"
           variant="secondary"
           className="w-full border border-borderlight"
-          onClick={handleGoogleSignIn}
+          onClick={handleGoogleLogin}
           disabled={loading}
         >
           <GoogleIcon /> Google
