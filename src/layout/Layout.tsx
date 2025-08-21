@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Header from "../components/common/header/Header";
+import Footer from "../components/common/footer/Footer";
 
 const MainLayout = () => {
   return (
@@ -10,6 +11,11 @@ const MainLayout = () => {
       <main className="">
         <Outlet />
       </main>
+
+      <footer id="contact" className="bg-gray-900 text-text-primary py-16">
+        {" "}
+        <Footer />
+      </footer>
     </div>
   );
 };

@@ -53,3 +53,39 @@ body {
   border-radius: 0.75rem; /* rounded-xl */
   padding: 1rem;
 }
+
+.section {
+  text-align: center;
+  padding: 100px 0;
+}
+.title {
+  font-weight: 700;
+  font-size: 30px;
+}
+
+.layout {
+  width: 80%;
+  margin: 0 auto;
+}
+@media (max-width: 768px) {
+  .section {
+    padding-top: 70px;
+  }
+  .title {
+    font-size: 25px;
+  }
+  .layout {
+    width: 85%;
+  }
+}
+@media (max-width: 480px) {
+  .section {
+    padding-top: 50px;
+  }
+  .title {
+    font-size: 20px;
+  }
+  .layout {
+    width: 95%;
+  }
+}
