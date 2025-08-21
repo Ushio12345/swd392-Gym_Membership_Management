@@ -7,6 +7,7 @@ import MainLayout from "../layout/Layout";
 import GymPackagePage from "../pages/gym-package/page"
 import BowlingPackagePage from  "../pages/bowling-package/page";
 import PackagePlan from "../pages/package-plan/page"
+import ManagePackage from "../pages/manage-package/page"
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "/package-plan",
         element: <PackagePlan />   
+      },
+      {
+        path: "/manage-package",
+        element: <ManagePackage />   
       }
     ]
   },

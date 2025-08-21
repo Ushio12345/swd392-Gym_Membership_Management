@@ -23,7 +23,7 @@ const Header = () => {
               }`
             }
           >
-            Trang chủ
+            HomePage
           </NavLink>
 
           <NavLink
@@ -32,7 +32,7 @@ const Header = () => {
               `transition ${isActive ? "text-accent-blue font-semibold" : ""}`
             }
           >
-            Gói của tôi
+            My Orders
           </NavLink>
 
           <NavLink
@@ -41,7 +41,16 @@ const Header = () => {
               `transition ${isActive ? "text-accent-blue font-semibold" : ""}`
             }
           >
-            Dịch vụ
+            Service
+          </NavLink>
+
+          <NavLink
+            to="/manage-package"
+            className={({ isActive }) =>
+              `transition ${isActive ? "text-accent-blue font-semibold" : ""}`
+            }
+          >
+            Manage
           </NavLink>
 
           <NavLink
@@ -50,7 +59,7 @@ const Header = () => {
               `transition ${isActive ? "text-accent-blue font-semibold" : ""}`
             }
           >
-            Liên hệ
+            Contact
           </NavLink>
         </nav>
         <div className="hidden md:block">
@@ -58,7 +67,7 @@ const Header = () => {
             to="/auth"
             className="px-4 py-2 text-white rounded-lg hover:bg-accent-blue transition border border-border "
           >
-            Đăng ký
+            Login
           </Link>
         </div>
       </div>

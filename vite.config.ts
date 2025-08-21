@@ -14,11 +14,11 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'https://a7b97adec99b.ngrok-free.app',
+        target: 'https://ae332185633a.ngrok-free.app',
         changeOrigin: true,
         secure: true,
         configure: (proxy, _options) => {
-          proxy.on('proxyReq', (proxyReq, req, res) => {
+          proxy.on('proxyReq', (proxyReq) => {
             // Thêm header cho ngrok
             proxyReq.setHeader('ngrok-skip-browser-warning', 'true');
           });
