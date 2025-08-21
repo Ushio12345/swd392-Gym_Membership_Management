@@ -24,7 +24,7 @@ const Register = () => {
   });
 
   const handleSignUp = (data: FormData) => {
-    console.log("Sign up with:", data.email, data.password);
+    console.log("Sign up with:", data.username, data.password);
     setLoading(true);
     // TODO: gọi API register
     setTimeout(() => setLoading(false), 1000);
@@ -39,28 +39,28 @@ const Register = () => {
     <>
       <form onSubmit={handleSubmit(handleSignUp)} className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="signup-email" className="text-text">
-            Email
+          <Label htmlFor="signup-username" className="text-text">
+            username
           </Label>
           <Input
-            id="signup-email"
-            type="email"
-            placeholder="your@email.com"
-            {...register("email")}
+            id="signup-username"
+            type="username"
+            placeholder="your@username.com"
+            {...register("username")}
           />
-          {errors.email && (
-            <p className="text-sm text-red-500">{errors.email.message}</p>
+          {errors.username && (
+            <p className="text-sm text-red-500">{errors.username.message}</p>
           )}
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="signup-password " className="text-text">
-            Mật khẩu
+            Password
           </Label>
           <Input
             id="signup-password"
             type="password"
-            placeholder="Tối thiểu 6 ký tự"
+            placeholder="Enter your password"
             {...register("password")}
           />
           {errors.password && (
@@ -72,11 +72,10 @@ const Register = () => {
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? (
               <div className="flex items-center gap-2">
-                <LoadingDumbbell className="!text-white " /> Đang kiểm tra tài
-                khoản...
+                <LoadingDumbbell className="!text-white " /> Loading...
               </div>
             ) : (
-              "Đăng ký"
+              "Register"
             )}
           </Button>
         </div>
@@ -85,7 +84,7 @@ const Register = () => {
       <div className="mt-4">
         <Separator className="my-4" />
         <div className="text-center text-sm text-text-primary mb-4">
-          Hoặc đăng ký với
+          or register with
         </div>
         <Button
           type="button"

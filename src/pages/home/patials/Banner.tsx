@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import BannerImage from "../../../assets/images/banner.jpg";
 
-const texts = ["giá rẻ", "tiện lợi", "đa dạng", "hấp dẫn"];
+const texts = ["affordable", "convenient", "diverse", "exciting"];
 
 const Banner = () => {
   const [textIndex, setTextIndex] = useState(0);
@@ -47,20 +47,21 @@ const Banner = () => {
           <div className="text-center md:text-left max-w-xl">
             <h1 className="flex flex-col gap-2 text-4xl md:text-5xl font-extrabold text-white leading-tight">
               <span className="text-accent-success">GymBow</span>
-              Nâng Tầm Sức Khỏe <br />& Các gói tập {displayText}
+              Elevate Your Health <br />& Training Packages {displayText}
             </h1>
 
             <p className="mt-4 text-gray-200 text-lg">
-              Trải nghiệm dịch vụ tập luyện hiện đại, PT chuyên nghiệp, cùng
-              những trận bowling sôi động để xả stress mỗi ngày.
+              Experience modern workout services, professional personal
+              trainers, and thrilling bowling matches to release stress every
+              day.
             </p>
 
             <div className="mt-6 flex flex-col sm:flex-row gap-4">
               <button className="px-6 py-3 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition">
-                Đặt Gói Gym
+                Book Gym Package
               </button>
               <button className="px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition">
-                Đặt Gói Bowling
+                Book Bowling Package
               </button>
             </div>
           </div>
@@ -68,16 +69,15 @@ const Banner = () => {
           {/* Right Box / Callout */}
           <div className="hidden md:flex bg-white/90 p-6 rounded-xl shadow-lg max-w-sm text-black">
             <div>
-              <h2 className="text-xl font-bold mb-2">Ưu Đãi Hấp Dẫn 🎉</h2>
+              <h2 className="text-xl font-bold mb-2">Special Offers 🎉</h2>
               <p className="text-sm text-gray-700 mb-3">
-                Khám phá các gói tập của chúng tôi ngay hôm nay để nhận những ưu
-                đãi hấp dẫn
+                Discover our training packages today and enjoy exclusive offers.
               </p>
               <a
                 href="#packages"
                 className="inline-block mt-2 px-5 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 transition"
               >
-                Khám phá gói tập
+                Explore Packages
               </a>
             </div>
           </div>

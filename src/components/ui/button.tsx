@@ -27,6 +27,8 @@ const buttonVariants = cva(
           "bg-accent-error text-text shadow-sm hover:bg-accent-error/80 focus-visible:ring-accent-error/30",
         ghost:
           "bg-transparent text-primary hover:bg-accent-blue/10 font-medium",
+        light:
+          "bg-white border-border bg-accent-blue text-primary hover:bg-accent-blue  hover:text-text",
       },
       size: {
         default: "h-10 px-4 py-3",

@@ -37,7 +37,7 @@ const Auth = () => {
           </div>
           <h1 className="text-3xl font-bold text-white">GymBow</h1>
           <p className="mt-2 text-lg text-text-secondary">
-            Đặt gói tập gym của bạn
+            Book your gym membership
           </p>
         </div>
       </header>
@@ -46,17 +46,17 @@ const Auth = () => {
       <Card className=" relative z-10 w-full max-w-md bg-card border border-border shadow-lg">
         <CardHeader>
           <CardTitle className="text-center text-text-primary">
-            Chào mừng!
+            Welcome!
           </CardTitle>
           <CardDescription className="text-center text-text-secondary">
-            Đăng nhập hoặc tạo tài khoản để bắt đầu
+            Sign in or create an account to get started
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="signin" className="w-full">
             <TabsList className="grid w-full grid-cols-2 bg-secondary rounded-lg">
-              <TabsTrigger value="signin">Đăng nhập</TabsTrigger>
-              <TabsTrigger value="signup">Đăng ký</TabsTrigger>
+              <TabsTrigger value="signin">Sign In</TabsTrigger>
+              <TabsTrigger value="signup">Sign Up</TabsTrigger>
             </TabsList>
 
             <TabsContent value="signin">

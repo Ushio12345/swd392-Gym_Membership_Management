@@ -1,7 +1,11 @@
 import { Dumbbell } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
+import { useAuth } from "../../../context/authContext";
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
+import { Button } from "../../ui/button";
 
 const Header = () => {
+  const { token, logout, user } = useAuth();
   return (
     <header className="w-full bg-primary border-b-2 border-b-border shadow-md fixed top-0 left-0 z-50">
       <div className="container mx-auto px-4 lg:px-0 flex justify-between items-center h-16">
@@ -23,7 +27,7 @@ const Header = () => {
               }`
             }
           >
-            Trang chủ
+            Home
           </NavLink>
 
           <NavLink
@@ -32,7 +36,7 @@ const Header = () => {
               `transition ${isActive ? "text-accent-blue font-semibold" : ""}`
             }
           >
-            Gói của tôi
+            My Packages
           </NavLink>
 
           <NavLink
@@ -41,7 +45,7 @@ const Header = () => {
               `transition ${isActive ? "text-accent-blue font-semibold" : ""}`
             }
           >
-            Dịch vụ
+            Services
           </NavLink>
 
           <NavLink
@@ -50,17 +54,28 @@ const Header = () => {
               `transition ${isActive ? "text-accent-blue font-semibold" : ""}`
             }
           >
-            Liên hệ
+            Contact
           </NavLink>
         </nav>
-        <div className="hidden md:block">
-          <Link
-            to="/auth"
-            className="px-4 py-2 text-white rounded-lg hover:bg-accent-blue transition border border-border "
-          >
-            Đăng ký
-          </Link>
-        </div>
+        {token ? (
+          <Popover>
+            <PopoverTrigger>{user?.fullName}</PopoverTrigger>
+            <PopoverContent className="bg-white text-primary">
+              <Button className="" variant={"ghost"} onClick={() => logout()}>
+                Đăng xuất
+              </Button>
+            </PopoverContent>
+          </Popover>
+        ) : (
+          <div className="hidden md:block">
+            <Link
+              to="/auth"
+              className="px-4 py-2 text-white rounded-lg hover:bg-accent-blue transition border border-border "
+            >
+              Sign Up
+            </Link>
+          </div>
+        )}
       </div>
     </header>
   );
