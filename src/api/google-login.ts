@@ -1,5 +1,6 @@
-// src/api/google-login.ts
 import { signInWithPopup } from "firebase/auth";
+// src/api/google-login.ts
+
 import { auth, googleProvider } from "./../../firebaseConfig";
 
 export const signInWithGoogle = async () => {
