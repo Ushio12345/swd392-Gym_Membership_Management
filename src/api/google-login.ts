@@ -1,40 +1,32 @@
 import { signInWithPopup } from "firebase/auth";
-// src/api/google-login.ts
+import axiosInstance from "../aixos/axiosInstance";
+import { auth, googleProvider } from "../../firebaseConfig";
 
-import { auth, googleProvider } from "./../../firebaseConfig";
+interface LoginResponse {
+  token: string;
+  user: {
+    id: string;
+    email: string;
+    name?: string;
+  };
+}
 
-export const signInWithGoogle = async () => {
+export const signInWithGoogle = async (): Promise<LoginResponse> => {
   try {
-    // 1. Google popup login
     const result = await signInWithPopup(auth, googleProvider);
-
-    // 2. Get Firebase ID token
     const idToken = await result.user.getIdToken();
-
-    // 3. Send to backend
-    const response = await fetch(
-      "https://ae332185633a.ngrok-free.app/api/firebase-auth/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ idToken }),
-      }
+    const { data } = await axiosInstance.post<LoginResponse>(
+      "/firebase-auth/login",
+      { idToken }
     );
 
-    const data = await response.json();
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
 
-    if (response.ok) {
-      // Login successful
-      localStorage.setItem("jwt_token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-      console.log("Login successful:", data);
-    } else {
-      // Login failed
-      console.error("Login failed:", data.error);
-    }
+    console.log("Login successful:", data);
+    return data;
   } catch (error) {
     console.error("Google login error:", error);
+    throw error;
   }
 };

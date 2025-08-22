@@ -64,7 +64,7 @@ const Login = () => {
 
       // Test backend call
       const response = await fetch(
-        "https://ae332185633a.ngrok-free.app/api/firebase-auth/login",
+        "https://98e5ee4b3304.ngrok-free.app/api/firebase-auth/login",
         {
           method: "POST",
           headers: {
