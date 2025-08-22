@@ -64,7 +64,7 @@ const Login = () => {
 
       // Test backend call
       const response = await fetch(
-        "https://98e5ee4b3304.ngrok-free.app/api/firebase-auth/login",
+        `${import.meta.env.VITE_BASE_URL}firebase-auth/login`,
         {
           method: "POST",
           headers: {
