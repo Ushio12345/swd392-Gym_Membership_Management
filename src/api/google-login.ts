@@ -1,21 +1,18 @@
 import { signInWithPopup } from "firebase/auth";
 import axiosInstance from "../aixos/axiosInstance";
 import { auth, googleProvider } from "../../firebaseConfig";
+import type { User } from "../lib/context/authContext";
 
 interface LoginResponse {
   token: string;
-  user: {
-    id: string;
-    email: string;
-    name?: string;
-  };
+  user: User;
 }
 
 export const signInWithGoogle = async (): Promise<LoginResponse> => {
   try {
     const result = await signInWithPopup(auth, googleProvider);
     const idToken = await result.user.getIdToken();
-    const { data } = await axiosInstance.post<LoginResponse>(
+    const data = await axiosInstance.post<LoginResponse>(
       "/firebase-auth/login",
       { idToken }
     );

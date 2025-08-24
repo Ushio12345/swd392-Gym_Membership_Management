@@ -6,8 +6,12 @@ import {
   CardHeader,
   CardTitle,
 } from "../../../components/ui/card";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { formatPrice } from "../../../lib/utils";
 
 type PackageItemProps = {
+  id: number;
   name: string;
   description: string;
   price: number;
@@ -16,17 +20,18 @@ type PackageItemProps = {
 };
 
 export default function PackageItem({
+  id,
   name,
   description,
   price,
   durationMonths,
   centerName,
 }: PackageItemProps) {
-  const formatPrice = (value: number) =>
-    value.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+  const navigator = useNavigate();
 
+  const [showMore, setShowMore] = useState(false);
   return (
-    <Card className=" group px-4 py-7 shadow-lg bg-card rounded-2xl border border-border  duration-500 transition-all hover:bg-white/10 hover:-translate-y-7 mt-20">
+    <Card className="flex flex-col justify-between group px-4 py-7 shadow-lg bg-card rounded-2xl border border-border  duration-500 transition-all hover:bg-white/10 hover:-translate-y-7">
       <CardHeader className="text-center">
         <div className="flex items-center justify-center mb-4">
           <Crown
@@ -51,17 +56,29 @@ export default function PackageItem({
         <p className="text-text-secondary text-base md:text-md flex items-center gap-2">
           <Clock /> {durationMonths} mounths
         </p>
-        <p className="text-center text-text-muted flex gap-2 items-center">
+        <div className="text-center text-text-muted flex gap-2 items-start">
           <CheckCheckIcon
-            className="bg-accent-success p-2 rounded-full text-black "
+            className="bg-accent-success p-2 rounded-full text-black shrink-0"
             width={30}
             height={30}
           />
-          {description}
-        </p>
+          <div>
+            {showMore ? description : description.slice(0, 30) + "..."}
+            {description.length > 30 && (
+              <span
+                className="text-accent-blue ml-2 hover:underline cursor-pointer"
+                onClick={() => setShowMore((pre) => !pre)}
+              >
+                {showMore ? "Hide" : "Show more"}
+              </span>
+            )}
+          </div>
+        </div>
+
         <Button
           variant={"light"}
-          className="hidden w-full mt-4 bg-accent-blue/20 text-accent-blue hover:bg-accent-blue/40 transition"
+          className=" w-full mt-4 bg-accent-blue/20 text-accent-blue hover:bg-accent-blue/40 transition"
+          onClick={() => navigator(`/package-plan-detail/${id}`)}
         >
           Detail Package
         </Button>

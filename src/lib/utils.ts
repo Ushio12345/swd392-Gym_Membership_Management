@@ -7,6 +7,9 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export const formatPrice = (value: number) =>
+  value.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+
 // export function delay(millisecond: number) {
 //   return new Promise((resolve) => setTimeout(resolve, millisecond));
 // }

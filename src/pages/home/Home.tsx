@@ -7,7 +7,7 @@ const Home = () => {
       <section>
         <Banner />
       </section>
-      <div className="section bg-secondary">
+      <div className="section bg-secondary ">
         <Packages />
       </div>
     </>

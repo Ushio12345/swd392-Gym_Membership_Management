@@ -1,10 +1,17 @@
-import { Dumbbell } from "lucide-react";
-import { Link, NavLink } from "react-router-dom";
-import { useAuth } from "../../../context/authContext";
-import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
-import { Button } from "../../ui/button";
+import { Dumbbell, LogOut, User } from "lucide-react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../../../lib/context/authContext";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../../ui/dropdown-menu";
 
 const Header = () => {
+  const navigate = useNavigate();
   const { token, logout, user } = useAuth();
   return (
     <header className="w-full bg-primary border-b-2 border-b-border shadow-md fixed top-0 left-0 z-50">
@@ -31,12 +38,12 @@ const Header = () => {
           </NavLink>
 
           <NavLink
-            to="/my-packages"
+            to="/packages"
             className={({ isActive }) =>
               `transition ${isActive ? "text-accent-blue font-semibold" : ""}`
             }
           >
-            My Packages
+            Packages
           </NavLink>
 
           <NavLink
@@ -58,14 +65,35 @@ const Header = () => {
           </NavLink>
         </nav>
         {token ? (
-          <Popover>
-            <PopoverTrigger>{user?.fullName}</PopoverTrigger>
-            <PopoverContent className="bg-white text-primary">
-              <Button className="" variant={"ghost"} onClick={() => logout()}>
-                Đăng xuất
-              </Button>
-            </PopoverContent>
-          </Popover>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              data-slot="dropdown-menu-trigger"
+              className="px-4 py-2 text-white rounded-lg border border-border hover:bg-accent-blue transition"
+            >
+              {user?.fullName}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              className="bg-card text-text-primary shadow-lg min-w-[200px]"
+              align="end"
+              sideOffset={4}
+            >
+              <DropdownMenuItem
+                className="hover:bg-foreground"
+                onClick={() => navigate("/profile")}
+              >
+                <User className="mr-2 size-4" />
+                Profile
+              </DropdownMenuItem>
+              <DropdownMenuSeparator className="bg-border" />
+              <DropdownMenuItem
+                className="hover:bg-foreground text-accent-error"
+                onClick={logout}
+              >
+                <LogOut className="mr-2 size-4" />
+                Logout
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         ) : (
           <div className="hidden md:block">
             <Link

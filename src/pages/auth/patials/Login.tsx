@@ -13,10 +13,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
 import { MoveLeft } from "lucide-react";
 import { loginApi } from "../../../api/auth-api";
-import { useAuth } from "../../../context/authContext";
+import { useAuth } from "../../../lib/context/authContext";
 import { toast } from "react-toastify";
-import { signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "../../../../firebaseConfig";
+
+import { signInWithGoogle } from "../../../api/google-login";
 
 type FormData = yup.InferType<typeof authSchema>;
 
@@ -57,24 +57,8 @@ const Login = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      console.log("🚀 Starting Google login...");
-
-      const result = await signInWithPopup(auth, googleProvider);
-      const idToken = await result.user.getIdToken();
-
-      // Test backend call
-      const response = await fetch(
-        `${import.meta.env.VITE_BASE_URL}firebase-auth/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ idToken }),
-        }
-      );
-
-      const data = await response.json();
+      const data = await signInWithGoogle();
+      console.log(data);
 
       if (data) {
         navigate("/");

@@ -6,7 +6,7 @@ import {
   type ReactNode,
 } from "react";
 
-type User = {
+export type User = {
   id: number;
   email: string;
   fullName: string;

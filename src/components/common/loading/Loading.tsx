@@ -1,8 +1,9 @@
 import "./Loading.css";
+
 const Loading = () => {
   return (
-    <div className="flex items-center justify-center w-full min-h-screen bg-black/50">
-      <div className="loader "> </div>
+    <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+      <div className="loader"></div>
     </div>
   );
 };

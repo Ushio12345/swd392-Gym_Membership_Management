@@ -33,7 +33,7 @@ const Banner = () => {
   }, [charIndex, isDeleting, textIndex]);
 
   return (
-    <div className="relative w-full max-h-[700px] overflow-hidden">
+    <div className="relative w-full h-[700px] overflow-hidden">
       <img
         src={BannerImage}
         alt="Banner"
@@ -41,7 +41,7 @@ const Banner = () => {
         className="object-cover object-center w-full h-full"
       />
 
-      <div className="absolute w-full h-full flex items-center justify-center bg-black/55 top-1/2 -translate-y-1/2">
+      <div className="absolute w-full h-full flex items-center justify-center bg-black/55 top-1/2 -translate-y-1/2 p-10">
         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between h-full px-8 md:px-8 gap-10">
           {/* Left Text */}
           <div className="text-center md:text-left max-w-xl">

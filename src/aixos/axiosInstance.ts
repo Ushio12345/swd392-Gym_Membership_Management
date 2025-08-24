@@ -8,8 +8,14 @@ import axios, {
 import { toast } from "react-toastify";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL as string;
+interface CustomAxiosInstance extends AxiosInstance {
+  get<T = any, R = T>(url: string, config?: any): Promise<R>;
+  post<T = any, R = T>(url: string, data?: any, config?: any): Promise<R>;
+  put<T = any, R = T>(url: string, data?: any, config?: any): Promise<R>;
+  delete<T = any, R = T>(url: string, config?: any): Promise<R>;
+}
 
-const axiosInstance: AxiosInstance = axios.create({
+const axiosInstance: CustomAxiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",

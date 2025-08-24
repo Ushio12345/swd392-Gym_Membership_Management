@@ -1,0 +1,29 @@
+.custom-pagination {
+  .ant-pagination-item {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+
+  .ant-pagination-item-active {
+    background-color: var(--color-accent-blue);
+    border-color: white;
+
+    a {
+      color: white;
+    }
+  }
+
+  .ant-pagination-prev,
+  .ant-pagination-next {
+    button {
+      border-radius: 50%;
+      background: #f9f9f7;
+    }
+  }
+}
+.ant-pagination-item-link {
+  color: white !important;
+}
+.ant-pagination-options-quick-jumper {
+  color: white !important;
+}
