@@ -45,15 +45,48 @@ const PackageDetailItem = ({
       };
 
       const order = await createOrder(payload);
-      if (order) {
-        nabagate(order.paymentUrl);
-      }
+      // if (order) {
+      //   window.location.href = order.paymentUrl;
+      // }
       console.log("Order:", order);
     } catch (error) {
       toast.error("Không thể tạo order, vui lòng thử lại");
     }
   };
+  const testTmnCodes = async () => {
+    try {
+      const response = await fetch(
+        "https://095d26e56767.ngrok-free.app/api/dev/test-vnpay-tmn-codes",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount: 55000,
+            orderId: "TMN_TEST_001",
+          }),
+        }
+      );
 
+      const result = await response.json();
+      console.log("TMN Codes Test:", result);
+
+      // Test từng URL
+      if (result.success) {
+        const { testUrls } = result;
+
+        // Test từng TMN Code
+        Object.values(testUrls).forEach((testUrl) => {
+          console.log(`Testing TMN Code: ${testUrl.tmnCode}`);
+          console.log(`URL: ${testUrl.url}`);
+
+          // Mở URL trong tab mới
+          window.open(testUrl.url, "_blank");
+        });
+      }
+    } catch (error) {
+      console.error("TMN Codes test error:", error);
+    }
+  };
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <div className="bg-card rounded-2xl shadow-lg border border-border overflow-hidden transform transition-all duration-300 hover:shadow-xl">
@@ -138,7 +171,7 @@ const PackageDetailItem = ({
         </div>
 
         <div className="border-t border-border px-6 py-4 flex justify-end">
-          <Button variant={"primary"} onClick={() => handleByPackage()}>
+          <Button variant={"primary"} onClick={() => testTmnCodes()}>
             Register Now
             <MoveRight size={18} />
           </Button>
