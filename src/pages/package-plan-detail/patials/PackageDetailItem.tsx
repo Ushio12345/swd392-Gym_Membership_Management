@@ -76,7 +76,6 @@ const PackageDetailItem = ({
 
         // Test từng TMN Code
         Object.values(testUrls).forEach((testUrl) => {
-          console.log(`Testing TMN Code: ${testUrl.tmnCode}`);
           console.log(`URL: ${testUrl.url}`);
 
           // Mở URL trong tab mới

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import BannerImage from "../../../assets/images/banner.jpg";
-
+import {Link} from "react-router-dom";
 const texts = ["affordable", "convenient", "diverse", "exciting"];
 
 const Banner = () => {
@@ -57,12 +57,16 @@ const Banner = () => {
             </p>
 
             <div className="mt-6 flex flex-col sm:flex-row gap-4">
-              <button className="px-6 py-3 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition">
-                Book Gym Package
-              </button>
-              <button className="px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition">
-                Book Bowling Package
-              </button>
+              <Link
+              to="/gym-package"
+              className="px-6 py-3 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition">
+                Buy Gym Package
+              </Link>
+              <Link
+              to="/bowling-package"
+              className="px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition">
+                Buy Bowling Package
+              </Link>
             </div>
           </div>
 
@@ -73,12 +77,12 @@ const Banner = () => {
               <p className="text-sm text-gray-700 mb-3">
                 Discover our training packages today and enjoy exclusive offers.
               </p>
-              <a
-                href="#packages"
+              <Link
+                to="/package-plan"
                 className="inline-block mt-2 px-5 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 transition"
               >
-                Explore Packages
-              </a>
+                Expolor Combo Package
+              </Link>
             </div>
           </div>
         </div>

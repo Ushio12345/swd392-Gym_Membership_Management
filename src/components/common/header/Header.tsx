@@ -27,6 +27,7 @@ const Header = () => {
 
         {/* nav desktop */}
         <nav className="hidden md:flex gap-6 items-center font-medium text-text">
+<<<<<<< HEAD
           {navLinks.map((item) => (
             <NavLink
               key={item.path}
@@ -42,6 +43,67 @@ const Header = () => {
               {item.label}
             </NavLink>
           ))}
+=======
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `transition ${
+                isActive
+                  ? "text-accent-blue font-semibold border-b-2 border-b-accent-blue"
+                  : ""
+              }`
+            }
+          >
+            Home
+          </NavLink>
+
+          <NavLink
+            to="/my-packages"
+            className={({ isActive }) =>
+              `transition ${isActive ? "text-accent-blue font-semibold" : ""}`
+            }
+          >
+            My Packages
+          </NavLink>
+
+         <NavLink
+            to="/manage-package"
+            className={({ isActive }) =>
+              `transition ${isActive ? "text-accent-blue font-semibold" : ""}`
+            }
+          >
+            Manage
+          </NavLink>
+
+          <NavLink
+            to="/services"
+            className={({ isActive }) =>
+              `transition ${isActive ? "text-accent-blue font-semibold" : ""}`
+            }
+          >
+            
+            Services
+          </NavLink>
+
+          <NavLink
+            to="/manage-package"
+            className={({ isActive }) =>
+              `transition ${isActive ? "text-accent-blue font-semibold" : ""}`
+            }
+          >
+            Manage
+          </NavLink>
+
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              `transition ${isActive ? "text-accent-blue font-semibold" : ""}`
+            }
+          >
+            
+            Contact
+          </NavLink>
+>>>>>>> origin/yen-thao
         </nav>
 
         {/* nav mobile toggle */}
