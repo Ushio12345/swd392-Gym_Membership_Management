@@ -1,6 +1,6 @@
 import axiosInstance from "../aixos/axiosInstance";
 
-const BASE_URL = "https://ae332185633a.ngrok-free.app/api/staff/packages";
+const BASE_URL = "https://095d26e56767.ngrok-free.app/api/staff/packages";
 
 // Lấy tất cả package
 export const fetchPackages = async () => {
