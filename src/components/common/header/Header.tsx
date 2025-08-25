@@ -8,7 +8,7 @@ const Header = () => {
   const { token, logout, user } = useAuth();
   return (
     <header className="w-full bg-primary border-b-2 border-b-border shadow-md fixed top-0 left-0 z-50">
-      <div className="container mx-auto px-4 lg:px-0 flex justify-between items-center h-16">
+      <div className="container  mx-auto px-4 lg:px-0 flex justify-between items-center h-16">
         {/* Logo */}
         <Link to="/" className="flex gap-2 items-center hover:text-accent-blue">
           <Dumbbell className="h-10 w-10 bg-white text-primary p-2 rounded-full" />
