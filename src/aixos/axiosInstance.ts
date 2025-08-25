@@ -30,23 +30,17 @@ axiosInstance.interceptors.request.use(
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    console.log("API Request:", config.method?.toUpperCase(), config.url); // Debug log
     return config;
   },
   (error: AxiosError) => Promise.reject(error)
 );
 
-// Response interceptor - FIXED: Don't automatically return response.data
+// Response interceptor
 axiosInstance.interceptors.response.use(
-  (response: AxiosResponse) => {
-    console.log("API Response received:", response.status, response.data); // Debug log
-    return response; // Return full response, not just data
-  },
+  (response: AxiosResponse) => response.data,
   async (error: AxiosError) => {
     const status = error.response?.status;
     let errorMessage = "Đã xảy ra lỗi. Vui lòng thử lại sau.";
-
-    console.error("API Error:", error); // Debug log
 
     if (status) {
       switch (status) {
