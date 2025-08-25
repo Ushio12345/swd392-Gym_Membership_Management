@@ -21,3 +21,19 @@ export const getCenterById = async (id: number): Promise<Center | null> => {
     return null;
   }
 };
+
+export const getAllCenters = async (): Promise<Center[]> => {
+  try {
+    const res = await axiosInstance.get<Center>(`/centers
+`);
+    if (!Array.isArray(res)) {
+      console.warn("Dữ liệu API không phải là mảng:", res);
+      return [];
+    }
+    return res;
+  } catch (error) {
+    console.error(`Error fetching all center`, error);
+    toast.error("Error fetching all center");
+    return [];
+  }
+};

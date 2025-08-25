@@ -11,9 +11,7 @@ const PackageDetail = () => {
     return <ErrorPackageComponent />;
   }
   if (!packagePlanDetail) {
-    return (
-      <div className="text-text-error text-center">huhudsdsdbsjkdskjbd</div>
-    );
+    return <div className="text-text-error text-center">Loading....</div>;
   }
 
   return (

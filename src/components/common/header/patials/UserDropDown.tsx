@@ -34,6 +34,14 @@ const UserDropDown = ({ user, logout }: UserDropDownType) => {
           <User className="mr-2 size-4" />
           Profile
         </DropdownMenuItem>
+        <DropdownMenuItem
+          className="hover:bg-foreground"
+          onClick={() => navigate("/manage-package")}
+        >
+          <User className="mr-2 size-4" />
+          Manage
+        </DropdownMenuItem>
+
         <DropdownMenuSeparator className="bg-border" />
         <DropdownMenuItem
           className="hover:bg-foreground text-accent-error"
