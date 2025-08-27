@@ -155,8 +155,9 @@ const ManagePackage = () => {
   const loadServicesByCenter = async (centerId: number) => {
     try {
       const response = await fetchServicesByCenter(centerId);
-      const servicesData = Array.isArray(response);
-
+      const servicesData = Array.isArray(response)
+        ? response
+        : response?.data || [];
       setServices(servicesData);
     } catch (error) {
       console.error("Error loading services:", error);
@@ -462,6 +463,7 @@ const ManagePackage = () => {
                         onChange={handleChange}
                         className="bg-gray-700 border-gray-600 text-white"
                         required
+                        min={0}
                       />
                       <Input
                         name="durationMonths"
@@ -471,6 +473,7 @@ const ManagePackage = () => {
                         onChange={handleChange}
                         className="bg-gray-700 border-gray-600 text-white"
                         required
+                        min={0}
                       />
 
                       <select
