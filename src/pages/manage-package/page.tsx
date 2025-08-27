@@ -138,13 +138,12 @@ const ManagePackage = () => {
       setApiLoading(false);
     }
   };
-
   const loadCenters = async () => {
     try {
       const response = await fetchCenters();
-      const centersData = Array.isArray(response)
-        ? response
-        : response?.data || [];
+
+      const centersData = Array.isArray(response) ? response : [];
+
       setCenters(centersData);
     } catch (error) {
       console.error("Error loading centers:", error);
@@ -155,9 +154,7 @@ const ManagePackage = () => {
   const loadServicesByCenter = async (centerId: number) => {
     try {
       const response = await fetchServicesByCenter(centerId);
-      const servicesData = Array.isArray(response)
-        ? response
-        : response?.data || [];
+      const servicesData = Array.isArray(response) ? response : [];
       setServices(servicesData);
     } catch (error) {
       console.error("Error loading services:", error);
