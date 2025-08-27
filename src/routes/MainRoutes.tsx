@@ -9,7 +9,10 @@ import PackageOfCenter from "../pages/package-of-center/PackageOfCenter";
 import HistoryOrderPage from "../pages/history-order/HistoryOrderPage";
 import ProtectedRoute from "./ProtectRoutes";
 import ServicesPage from "../pages/services/ServicesPage";
-
+import GymPackagePage from "../pages/gym-package/page";
+import BowlingPackagePage from "../pages/bowling-package/page";
+import PackagePlan from "../pages/package-plan/page";
+import ManagePackagekage from "../pages/manage-package/page";
 const Home = lazy(() => import("../pages/home/Home"));
 const Auth = lazy(() => import("../pages/auth/Auth"));
 const NotFound = lazy(() => import("../pages/not-found/Not-Found"));
@@ -27,8 +30,12 @@ const router = createBrowserRouter([
         element: <ProtectedRoute />,
         children: [
           { path: ROUTE_PATH.HISTORY_ORDER, element: <HistoryOrderPage /> },
+          { path: ROUTE_PATH.MANAGE_PACKAGE, element: <ManagePackagekage /> },
         ],
       },
+      { path: ROUTE_PATH.GYM_PACKAGE, element: <GymPackagePage /> },
+      { path: ROUTE_PATH.BOWLING_PACKAGE, element: <BowlingPackagePage /> },
+      { path: ROUTE_PATH.PACKAGE_PLAN, element: <PackagePlan /> },
     ],
   },
   { path: ROUTE_PATH.AUTH, element: <Auth /> },

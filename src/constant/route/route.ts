@@ -6,6 +6,10 @@ const ROUTE_PATH = {
   PACKAGE_CENTER: "package-center/:centerName",
   HISTORY_ORDER: "/my-order",
   SERVICES_PAGE: "/our-services",
+  GYM_PACKAGE: "/gym-package",
+  BOWLING_PACKAGE: "/bowling-package",
+  PACKAGE_PLAN: "/package-plan",
+  MANAGE_PACKAGE: "/manage-package",
 };
 
 export default ROUTE_PATH;

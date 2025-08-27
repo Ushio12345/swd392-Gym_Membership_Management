@@ -1,4 +1,3 @@
-// src/aixos/axiosInstance.ts
 import axios, {
   AxiosError,
   type AxiosInstance,

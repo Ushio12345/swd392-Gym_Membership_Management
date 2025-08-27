@@ -1,6 +1,6 @@
 import { Dumbbell, LogOut, Menu, User } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
-import { useState } from "react";
+import { use, useState } from "react";
 import { Drawer } from "antd";
 import { useAuth } from "../../../lib/context/authContext";
 import UserDropDown from "./patials/UserDropDown";
@@ -14,6 +14,7 @@ const Header = () => {
     { path: "/packages", label: "Packages" },
     { path: "/our-services", label: "Services" },
     { path: "/contact", label: "Contact" },
+    // { path: "/manage-package", label: "Manage"},
   ];
 
   return (
@@ -42,6 +43,11 @@ const Header = () => {
               {item.label}
             </NavLink>
           ))}
+          {user?.role === "STAFF" && (
+            <NavLink to={"/manage-package"} className="text-lg font-medium">
+              Manage
+            </NavLink>
+          )}
         </nav>
 
         {/* nav mobile toggle */}
@@ -100,6 +106,7 @@ const Header = () => {
               {item.label}
             </NavLink>
           ))}
+
           <div className="border-t pt-4 mt-4">
             {token ? (
               <button
