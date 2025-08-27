@@ -19,11 +19,13 @@ const PackageDetail = () => {
       {loading ? (
         <Loading />
       ) : (
-        <PackageDetailItem
-          center={center}
-          packagePlanDetail={packagePlanDetail}
-          pk={pk}
-        />
+        <div className="section">
+          <PackageDetailItem
+            center={center}
+            packagePlanDetail={packagePlanDetail}
+            pk={pk}
+          />
+        </div>
       )}
     </div>
   );
