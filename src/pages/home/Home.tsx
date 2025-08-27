@@ -1,3 +1,4 @@
+import CenterPage from "../center/Center";
 import Banner from "./patials/Banner";
 import Packages from "./patials/Packages";
 
@@ -7,9 +8,12 @@ const Home = () => {
       <section>
         <Banner />
       </section>
-      <div className="section bg-secondary ">
+      <section className="section bg-secondary ">
         <Packages />
-      </div>
+      </section>
+      <section>
+        <CenterPage />
+      </section>
     </>
   );
 };

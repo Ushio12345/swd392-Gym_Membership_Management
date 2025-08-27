@@ -58,3 +58,15 @@ export type CreateOrderPayload = {
   packagePlanId: number;
   quantity: number;
 };
+
+export type OrderOfUserType = {
+  id: number;
+  userId: number;
+  userEmail: string;
+  userFullName: string;
+  totalAmount: number;
+  status: string;
+  orderDate: string;
+  payment: string;
+  orderPackages: any;
+};

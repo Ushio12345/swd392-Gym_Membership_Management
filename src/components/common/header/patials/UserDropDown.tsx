@@ -1,4 +1,3 @@
-import React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "../../../ui/dropdown-menu";
 import { useNavigate } from "react-router-dom";
-import { LogOut, User } from "lucide-react";
+import { LogOut, Tickets, User } from "lucide-react";
 type UserDropDownType = {
   user: any;
   logout: () => void;
@@ -34,6 +33,21 @@ const UserDropDown = ({ user, logout }: UserDropDownType) => {
           <User className="mr-2 size-4" />
           Profile
         </DropdownMenuItem>
+        <DropdownMenuItem
+          className="hover:bg-foreground"
+          onClick={() => navigate("/my-order")}
+        >
+          <Tickets className="mr-2 size-4" />
+          My Order
+        </DropdownMenuItem>
+        {/* <DropdownMenuItem
+          className="hover:bg-foreground"
+          onClick={() => navigate("/manage-package")}
+        >
+          <User className="mr-2 size-4" />
+          Manage
+        </DropdownMenuItem> */}
+
         <DropdownMenuSeparator className="bg-border" />
         <DropdownMenuItem
           className="hover:bg-foreground text-accent-error"
