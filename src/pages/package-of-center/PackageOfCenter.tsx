@@ -62,7 +62,7 @@ const PackageOfCenter = () => {
 
   return (
     <div className="section layout">
-      <h4>Packages Of Center {}</h4>
+      <h4 className="text-4xl mb-4">Packages Of Center {}</h4>
       <div className="flex items-center  py-6 gap-3">
         <Input
           placeholder="Enter package name"

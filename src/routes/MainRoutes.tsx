@@ -6,6 +6,9 @@ import Loading from "../components/common/loading/Loading";
 import PackagePlanDetail from "../pages/package-plan-detail/PackagePlanDetailPage";
 import AllPackagePage from "../pages/all-package/AllPackagePage";
 import PackageOfCenter from "../pages/package-of-center/PackageOfCenter";
+import HistoryOrderPage from "../pages/history-order/HistoryOrderPage";
+import ProtectedRoute from "./ProtectRoutes";
+import ServicesPage from "../pages/services/ServicesPage";
 
 const Home = lazy(() => import("../pages/home/Home"));
 const Auth = lazy(() => import("../pages/auth/Auth"));
@@ -19,6 +22,13 @@ const router = createBrowserRouter([
       { path: ROUTE_PATH.PACKAGE_PLAN_DETAIL, element: <PackagePlanDetail /> },
       { path: ROUTE_PATH.ALL_PACKAGE, element: <AllPackagePage /> },
       { path: ROUTE_PATH.PACKAGE_CENTER, element: <PackageOfCenter /> },
+      { path: ROUTE_PATH.SERVICES_PAGE, element: <ServicesPage /> },
+      {
+        element: <ProtectedRoute />,
+        children: [
+          { path: ROUTE_PATH.HISTORY_ORDER, element: <HistoryOrderPage /> },
+        ],
+      },
     ],
   },
   { path: ROUTE_PATH.AUTH, element: <Auth /> },

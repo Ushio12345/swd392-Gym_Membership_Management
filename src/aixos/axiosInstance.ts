@@ -53,7 +53,7 @@ axiosInstance.interceptors.response.use(
           localStorage.removeItem("token");
           localStorage.removeItem("user");
           setTimeout(() => {
-            window.location.href = "/login";
+            window.location.href = "/auth";
           }, 1500);
           break;
         case 403:

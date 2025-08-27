@@ -4,7 +4,7 @@ import { getAllCenters } from "../../api/center-api";
 import CenterItem from "./patials/CenterItem";
 import { Button } from "../../components/ui/button";
 
-const Center = () => {
+const CenterPage = () => {
   const [center, setCenter] = useState<Center[] | []>([]);
   const [showAll, setShowAll] = useState(false);
   useEffect(() => {
@@ -38,4 +38,4 @@ const Center = () => {
   );
 };
 
-export default Center;
+export default CenterPage;

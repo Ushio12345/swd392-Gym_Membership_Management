@@ -1,49 +1,21 @@
 import { Dumbbell, LogOut, Menu, User } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Drawer } from "antd";
 import { useAuth } from "../../../lib/context/authContext";
 import UserDropDown from "./patials/UserDropDown";
-import { getAllServices } from "../../../api/services";
-import { type ServiceType } from "../../../constant/types/package";
-import { toast } from "react-toastify";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
-import { DropdownMenuContent, DropdownMenuItem } from "../../ui/dropdown-menu";
 
 const Header = () => {
   const { token, logout, user } = useAuth();
   const [open, setOpen] = useState(false);
-  const [services, setServices] = useState<ServiceType[] | []>([]);
-  const [loading, setLoading] = useState(false);
+
   const navLinks = [
     { path: "/", label: "Home" },
     { path: "/packages", label: "Packages" },
-    // { path: "/services", label: "Services" },
+    { path: "/our-services", label: "Services" },
     { path: "/contact", label: "Contact" },
   ];
 
-  useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        setLoading(true);
-        const data = await getAllServices();
-        console.log(data);
-
-        if (data) {
-          setServices(data);
-        }
-      } catch (error) {
-        toast.error("Không thể lấy dịch vụ.");
-        console.log("Error when fetching services", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchServices();
-  }, []);
   return (
     <header className="w-full bg-primary border-b-2 border-b-border shadow-md fixed top-0 left-0 z-50">
       <div className="container mx-auto px-4 lg:px-0 flex justify-between items-center h-16">
@@ -70,29 +42,6 @@ const Header = () => {
               {item.label}
             </NavLink>
           ))}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <span className="cursor-pointer hover:text-accent-blue transition">
-                Services
-              </span>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="min-w-48 bg-primary " align="end">
-              {services.length > 0 ? (
-                services.map((srv) => (
-                  <DropdownMenuItem key={srv.id} asChild>
-                    <Link
-                      to={`/services/${srv.id}`}
-                      className="cursor-pointer hover:bg-white hover:text-primary"
-                    >
-                      {srv.name}
-                    </Link>
-                  </DropdownMenuItem>
-                ))
-              ) : (
-                <DropdownMenuItem disabled>Không có dịch vụ</DropdownMenuItem>
-              )}
-            </DropdownMenuContent>
-          </DropdownMenu>
         </nav>
 
         {/* nav mobile toggle */}

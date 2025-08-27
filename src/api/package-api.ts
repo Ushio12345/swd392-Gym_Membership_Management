@@ -52,3 +52,26 @@ export const getPackagePlanDetail = async (
     return null;
   }
 };
+
+export const getPackageByServiceId = async (
+  id: number
+): Promise<PackagePlanDetail | null> => {
+  try {
+    const res = await axiosInstance.get<PackagePlanDetail>(
+      `/package-plan-details/service/${id}`
+    );
+
+    if (!res || typeof res !== "object") {
+      console.warn("Dữ liệu API không hợp lệ:", res);
+      return null;
+    }
+
+    return res;
+  } catch (error) {
+    console.error(
+      `Error fetching package plan detail with services id=${id}:`,
+      error
+    );
+    return null;
+  }
+};

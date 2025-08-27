@@ -1,5 +1,8 @@
 import axiosInstance from "../aixos/axiosInstance";
-import type { CreateOrderPayload } from "../constant/types/package";
+import {
+  type CreateOrderPayload,
+  type OrderOfUserType,
+} from "../constant/types/package";
 
 export type CreateOrderResponse = {
   orderId: number;
@@ -15,5 +18,16 @@ export const createOrder = async (payload: CreateOrderPayload) => {
     return res;
   } catch (error) {
     throw error;
+  }
+};
+
+export const fetchOrderOfUser = async (uid: number) => {
+  try {
+    const res = await axiosInstance.get<OrderOfUserType[]>(
+      `/orders/user/${uid}`
+    );
+    return res;
+  } catch {
+    console.log("Error when get order of user");
   }
 };
