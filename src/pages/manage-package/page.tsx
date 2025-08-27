@@ -8,7 +8,7 @@ import { Card, CardContent } from "../../components/ui/card"
 import { Input } from "../../components/ui/input"
 import { Badge } from "../../components/ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../components/ui/dialog"
-import { Users, Package, BarChart3, Search, Plus, Edit, Trash2, AlertCircle, Eye, X } from "lucide-react"
+import { Users, Package, Search, Plus, Edit, Trash2, AlertCircle, Eye, X } from "lucide-react"
 import {
   fetchPackages,
   createPackage,
@@ -333,7 +333,7 @@ const ManagePackage = () => {
             <div className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center">
               <Users className="w-4 h-4 text-white" />
             </div>
-            <span className="text-white text-sm">Admin</span>
+            
           </div>
         </div>
       </header>
@@ -342,7 +342,6 @@ const ManagePackage = () => {
         {/* Navigation Tabs */}
         <div className="flex space-x-1 mb-8 bg-gray-800/50 p-1 rounded-lg w-fit">
           {[
-            { id: "overview", label: "Overview", icon: BarChart3 },
             { id: "packages", label: "Package Management", icon: Package },
             { id: "users", label: "Service Management", icon: Users },
           ].map((tab) => (
