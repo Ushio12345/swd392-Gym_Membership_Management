@@ -13,6 +13,7 @@ import GymPackagePage from "../pages/gym-package/page";
 import BowlingPackagePage from "../pages/bowling-package/page";
 import PackagePlan from "../pages/package-plan/page";
 import ManagePackagekage from "../pages/manage-package/page";
+import StaffRoute from "./StaffRoute";
 const Home = lazy(() => import("../pages/home/Home"));
 const Auth = lazy(() => import("../pages/auth/Auth"));
 const NotFound = lazy(() => import("../pages/not-found/Not-Found"));
@@ -30,6 +31,11 @@ const router = createBrowserRouter([
         element: <ProtectedRoute />,
         children: [
           { path: ROUTE_PATH.HISTORY_ORDER, element: <HistoryOrderPage /> },
+        ],
+      },
+      {
+        element: <StaffRoute />,
+        children: [
           { path: ROUTE_PATH.MANAGE_PACKAGE, element: <ManagePackagekage /> },
         ],
       },
