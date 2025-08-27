@@ -1,4 +1,5 @@
 import axiosInstance from "../aixos/axiosInstance";
+import { type Center, type ServiceType } from "../constant/types/package";
 
 const API_PATH = "/staff/packages";
 
@@ -24,15 +25,11 @@ export const fetchPackages = async () => {
     console.error("fetchPackages error:", error);
 
     if (error?.response?.status === 404) {
-      throw new Error(
-        "API endpoint khÃ´ng tá»“n táº¡i. Vui lÃ²ng kiá»ƒm tra láº¡i."
-      );
+      throw new Error("API endpoint does not exist. Please check again.");
     } else if (error?.response?.status === 401) {
-      throw new Error(
-        "Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ truy cáº­p chá»©c nÄƒng nÃ y."
-      );
+      throw new Error("You need to log in to access this feature.");
     } else if (error?.response?.status === 403) {
-      throw new Error("Báº¡n khÃ´ng cÃ³ quyá»n truy cáº­p chá»©c nÄƒng nÃ y.");
+      throw new Error("You do not have permission to access this feature.");
     }
 
     throw error;
@@ -42,19 +39,19 @@ export const fetchPackages = async () => {
 export const createPackage = async (data: PackageCreateData) => {
   try {
     if (!data.name || data.name.trim().length === 0) {
-      throw new Error("TÃªn package khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng");
+      throw new Error("Package name cannot be empty");
     }
 
     if (!data.centerId || data.centerId <= 0) {
-      throw new Error("Center ID khÃ´ng há»£p lá»‡");
+      throw new Error("Center ID is invalid");
     }
 
     if (!data.serviceIds || data.serviceIds.length === 0) {
-      throw new Error("Pháº£i chá»n Ã­t nháº¥t má»™t service");
+      throw new Error("At least one service must be selected");
     }
 
     if (!data.price || data.price <= 0) {
-      throw new Error("GiÃ¡ pháº£i lá»›n hÆ¡n 0");
+      throw new Error("Price must be greater than 0");
     }
 
     console.log("Creating package with data:", data);
@@ -68,9 +65,7 @@ export const createPackage = async (data: PackageCreateData) => {
     } else if (error?.response?.data?.message) {
       throw new Error(error.response.data.message);
     } else if (error?.response?.status === 400) {
-      throw new Error(
-        "Dá»¯ liá»‡u khÃ´ng há»£p lá»‡. Vui lÃ²ng kiá»ƒm tra láº¡i."
-      );
+      throw new Error("Invalid data. Please check again.");
     }
 
     throw error;
@@ -80,7 +75,7 @@ export const createPackage = async (data: PackageCreateData) => {
 export const updatePackage = async (id: number, data: PackageUpdateData) => {
   try {
     if (!id || id <= 0) {
-      throw new Error("Package ID khÃ´ng há»£p lá»‡");
+      throw new Error("Package ID is invalid");
     }
 
     console.log(`Updating package ${id} with data:`, data);
@@ -94,7 +89,7 @@ export const updatePackage = async (id: number, data: PackageUpdateData) => {
     } else if (error?.response?.data?.message) {
       throw new Error(error.response.data.message);
     } else if (error?.response?.status === 404) {
-      throw new Error("KhÃ´ng tÃ¬m tháº¥y package cáº§n cáº­p nháº­t");
+      throw new Error("Package not found for update");
     }
 
     throw error;
@@ -104,7 +99,7 @@ export const updatePackage = async (id: number, data: PackageUpdateData) => {
 export const deletePackage = async (id: number) => {
   try {
     if (!id || id <= 0) {
-      throw new Error("Package ID khÃ´ng há»£p lá»‡");
+      throw new Error("Package ID is invalid");
     }
 
     console.log(`Deleting package ${id}`);
@@ -114,9 +109,9 @@ export const deletePackage = async (id: number) => {
     console.error("deletePackage error:", error);
 
     if (error?.response?.status === 404) {
-      throw new Error("KhÃ´ng tÃ¬m tháº¥y package cáº§n xÃ³a");
+      throw new Error("Package not found for deletion");
     } else if (error?.response?.status === 409) {
-      throw new Error("KhÃ´ng thá»ƒ xÃ³a package Ä‘ang Ä‘Æ°á»£c sá»­ dá»¥ng");
+      throw new Error("Cannot delete package that is in use");
     }
 
     throw error;
@@ -126,7 +121,7 @@ export const deletePackage = async (id: number) => {
 export const toggleStatus = async (id: number) => {
   try {
     if (!id || id <= 0) {
-      throw new Error("Package ID khÃ´ng há»£p lá»‡");
+      throw new Error("Package ID is invalid");
     }
 
     console.log(`Toggling status for package ${id}`);
@@ -136,7 +131,7 @@ export const toggleStatus = async (id: number) => {
     console.error("toggleStatus error:", error);
 
     if (error?.response?.status === 404) {
-      throw new Error("KhÃ´ng tÃ¬m tháº¥y package");
+      throw new Error("Package not found");
     }
 
     throw error;
@@ -146,8 +141,8 @@ export const toggleStatus = async (id: number) => {
 export const fetchCenters = async () => {
   try {
     // Gọi API services/active để lấy danh sách services có chứa thông tin center
-    const res = await axiosInstance.get("/staff/services/active");
-    const services = res.data || res;
+    const res = await axiosInstance.get<Center>("/staff/services/active");
+    const services = res;
 
     console.log("Services response:", services); // Debug log
 
@@ -156,7 +151,7 @@ export const fetchCenters = async () => {
       return [];
     }
 
-    // Extract unique centers táº¡i services data
+    // Extract unique centers from services data
     const centersMap = new Map();
 
     services.forEach((service: any) => {
@@ -182,7 +177,7 @@ export const fetchCenters = async () => {
 export const fetchServicesByCenter = async (centerId: number) => {
   try {
     // Gọi API services/active và filter theo centerId
-    const res = await axiosInstance.get("/staff/services/active");
+    const res = await axiosInstance.get<ServiceType>("/staff/services/active");
     const allServices = res;
 
     console.log("All services response:", allServices); // Debug log

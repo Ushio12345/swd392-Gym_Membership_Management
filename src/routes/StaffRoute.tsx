@@ -1,7 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../lib/context/authContext";
 import Loading from "../components/common/loading/Loading";
-import { toast } from "react-toastify";
 
 export default function StaffRoute() {
   const { token, user, loading } = useAuth();

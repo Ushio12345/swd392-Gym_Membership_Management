@@ -1,6 +1,6 @@
 import { Dumbbell, LogOut, Menu, User } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
-import { use, useState } from "react";
+import { useState } from "react";
 import { Drawer } from "antd";
 import { useAuth } from "../../../lib/context/authContext";
 import UserDropDown from "./patials/UserDropDown";
