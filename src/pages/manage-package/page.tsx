@@ -95,15 +95,24 @@ const ManagePackage = () => {
       const response = await fetchPackages()
       console.log("API Response:", response)
 
-      let packagesData = []
+      let packagesData: PackageData[] = []
+
+      // Handle different possible response structures
       if (Array.isArray(response)) {
         packagesData = response
-      } else if (response?.data && Array.isArray(response.data)) {
-        packagesData = response.data
-      } else if (response?.packages && Array.isArray(response.packages)) {
-        packagesData = response.packages
-      } else if (response?.result && Array.isArray(response.result)) {
-        packagesData = response.result
+      } else if (response && typeof response === "object") {
+        // Try different possible property names for the packages array
+        const responseObj = response as any
+        if (Array.isArray(responseObj.data)) {
+          packagesData = responseObj.data
+        } else if (Array.isArray(responseObj.packages)) {
+          packagesData = responseObj.packages
+        } else if (Array.isArray(responseObj.result)) {
+          packagesData = responseObj.result
+        } else {
+          console.warn("Unexpected API response structure:", response)
+          packagesData = []
+        }
       } else {
         console.warn("Unexpected API response structure:", response)
         packagesData = []
@@ -112,7 +121,7 @@ const ManagePackage = () => {
       setPackages(packagesData)
     } catch (error) {
       console.error("Error loading packages:", error)
-      showMessage("Không thể tải danh sách packages!", "error")
+      showMessage("Failed to load packages list!", "error")
       setPackages([])
     } finally {
       setApiLoading(false)
@@ -122,18 +131,34 @@ const ManagePackage = () => {
   const loadCenters = async () => {
     try {
       const response = await fetchCenters()
-      const centersData = Array.isArray(response) ? response : response?.data || []
+      let centersData: Center[] = []
+
+      if (Array.isArray(response)) {
+        centersData = response
+      } else if (response && typeof response === "object") {
+        const responseObj = response as any
+        centersData = Array.isArray(responseObj.data) ? responseObj.data : []
+      }
+
       setCenters(centersData)
     } catch (error) {
       console.error("Error loading centers:", error)
-      showMessage("Không thể tải danh sách centers!", "error")
+      showMessage("Failed to load centers list!", "error")
     }
   }
 
   const loadServicesByCenter = async (centerId: number) => {
     try {
       const response = await fetchServicesByCenter(centerId)
-      const servicesData = Array.isArray(response) ? response : response?.data || []
+      let servicesData: Service[] = []
+
+      if (Array.isArray(response)) {
+        servicesData = response
+      } else if (response && typeof response === "object") {
+        const responseObj = response as any
+        servicesData = Array.isArray(responseObj.data) ? responseObj.data : []
+      }
+
       setServices(servicesData)
     } catch (error) {
       console.error("Error loading services:", error)
@@ -203,10 +228,10 @@ const ManagePackage = () => {
       let result
       if (editingPackage) {
         result = await updatePackage(editingPackage.id, payload)
-        showMessage("Cập nhật package thành công!", "success")
+        showMessage("Package updated successfully!", "success")
       } else {
         result = await createPackage(payload)
-        showMessage("Tạo package thành công!", "success")
+        showMessage("Package created successfully!", "success")
 
         if (result) {
           const newPackage = result.package || result.data || result
@@ -221,7 +246,8 @@ const ManagePackage = () => {
       resetForm()
     } catch (error: any) {
       console.error("Error saving package:", error)
-      const errorMessage = error?.message || (editingPackage ? "Cập nhật package thất bại!" : "Tạo package thất bại!")
+      const errorMessage =
+        error?.message || (editingPackage ? "Failed to update package!" : "Failed to create package!")
       showMessage(errorMessage, "error")
     } finally {
       setLoading(false)
@@ -243,16 +269,16 @@ const ManagePackage = () => {
   }
 
   const handleDelete = async (id: number, packageName: string) => {
-    if (!window.confirm(`Bạn có chắc chắn muốn xóa package "${packageName}"?`)) return
+    if (!window.confirm(`Are you sure you want to delete package "${packageName}"?`)) return
 
     try {
       setApiLoading(true)
       await deletePackage(id)
-      showMessage("Xóa package thành công!", "success")
+      showMessage("Package deleted successfully!", "success")
       await loadPackages()
     } catch (error: any) {
       console.error("Error deleting package:", error)
-      const errorMessage = error?.message || "Xóa package thất bại!"
+      const errorMessage = error?.message || "Failed to delete package!"
       showMessage(errorMessage, "error")
     } finally {
       setApiLoading(false)
@@ -260,17 +286,17 @@ const ManagePackage = () => {
   }
 
   const handleToggleStatus = async (id: number, currentStatus: boolean, packageName: string) => {
-    const action = currentStatus ? "vô hiệu hóa" : "kích hoạt"
-    if (!window.confirm(`Bạn có chắc chắn muốn ${action} package "${packageName}"?`)) return
+    const action = currentStatus ? "deactivate" : "activate"
+    if (!window.confirm(`Are you sure you want to ${action} package "${packageName}"?`)) return
 
     try {
       setApiLoading(true)
       await toggleStatus(id)
-      showMessage(`${currentStatus ? "Vô hiệu hóa" : "Kích hoạt"} package thành công!`, "success")
+      showMessage(`Package ${currentStatus ? "deactivated" : "activated"} successfully!`, "success")
       await loadPackages()
     } catch (error: any) {
       console.error("Error toggling status:", error)
-      const errorMessage = error?.message || "Thay đổi trạng thái thất bại!"
+      const errorMessage = error?.message || "Failed to change status!"
       showMessage(errorMessage, "error")
     } finally {
       setApiLoading(false)
@@ -530,7 +556,7 @@ const ManagePackage = () => {
                             <td className="py-4 text-white font-medium">{pkg.name}</td>
                             <td className="py-4 text-gray-300 max-w-xs truncate">{pkg.description}</td>
                             <td className="py-4 text-green-400 font-medium">{pkg.price.toLocaleString("vi-VN")} VND</td>
-                            <td className="py-4 text-gray-300">{pkg.durationMonths} tháng</td>
+                            <td className="py-4 text-gray-300">{pkg.durationMonths} months</td>
                             <td className="py-4 text-gray-300">{pkg.centerId}</td>
                             <td className="py-4">
                               <Badge
@@ -592,7 +618,7 @@ const ManagePackage = () => {
                       ) : (
                         <tr>
                           <td colSpan={8} className="py-8 text-center text-gray-400">
-                            {apiLoading ? "Đang tải..." : "Không có packages nào"}
+                            {apiLoading ? "Loading..." : "No packages found"}
                           </td>
                         </tr>
                       )}
