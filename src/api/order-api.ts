@@ -1,7 +1,7 @@
 import axiosInstance from "../aixos/axiosInstance";
 import {
   type CreateOrderPayload,
-  type OrderOfUserType,
+  type OrderType,
 } from "../constant/types/package";
 
 export type CreateOrderResponse = {
@@ -23,11 +23,45 @@ export const createOrder = async (payload: CreateOrderPayload) => {
 
 export const fetchOrderOfUser = async (uid: number) => {
   try {
-    const res = await axiosInstance.get<OrderOfUserType[]>(
-      `/orders/user/${uid}`
-    );
+    const res = await axiosInstance.get<OrderType[]>(`/orders/user/${uid}`);
     return res;
   } catch {
     console.log("Error when get order of user");
+  }
+};
+
+export const fetchAllOrder = async () => {
+  try {
+    const res = await axiosInstance.get<OrderType[] | []>(`/orders`);
+    return res;
+  } catch {
+    console.log("Error when get order of user");
+  }
+};
+export const updateOrderStatus = async (
+  orderId: number,
+  status: string
+): Promise<void> => {
+  try {
+    let endpoint = "";
+
+    switch (status) {
+      case "reject":
+        endpoint = `/payment/reject/${orderId}`;
+        break;
+      case "refund":
+        endpoint = `/payment/refund/${orderId}`;
+        break;
+      case "confirm":
+        endpoint = `/payment/confirm/${orderId}`;
+        break;
+      default:
+        throw new Error("Invalid status");
+    }
+
+    await axiosInstance.post(endpoint);
+  } catch (error) {
+    console.error("Error updating order status:", error);
+    throw new Error("Failed to update order status. Please try again.");
   }
 };

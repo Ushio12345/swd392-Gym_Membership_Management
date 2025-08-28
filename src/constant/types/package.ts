@@ -70,3 +70,24 @@ export type OrderOfUserType = {
   payment: string;
   orderPackages: any;
 };
+export interface PaymentType {
+  id: number;
+  orderId: number;
+  amount: number;
+  paymentMethod: string; // "VNPAY" | "MOMO" | ...
+  status: string; // "PENDING" | "SUCCESS" | "FAILED"
+  transactionId: string;
+  paymentDate: string; // ISO date string
+  vnpayResponse?: string; // optional vì có thể null/undefined
+}
+
+export interface OrderType {
+  id: number;
+  userId: number;
+  userEmail: string;
+  userFullName: string;
+  totalAmount: number;
+  status: string; // "PENDING" | "CONFIRM" | "REJECT" | ...
+  orderDate: string; // ISO date string
+  payment?: PaymentType; // có thể null => để optional
+}

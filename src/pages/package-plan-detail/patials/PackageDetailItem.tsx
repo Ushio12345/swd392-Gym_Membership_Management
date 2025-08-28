@@ -11,6 +11,8 @@ import { MoveRight } from "lucide-react";
 import { createOrder } from "../../../api/order-api";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../lib/context/authContext";
+import { useState } from "react";
+import { Dialog, DialogContent } from "../../../components/ui/dialog"; // Giả định sử dụng shadcn/ui Dialog
 
 type PackageDetailItemProps = {
   center: Center | null;
@@ -25,75 +27,63 @@ const PackageDetailItem = ({
 }: PackageDetailItemProps) => {
   if (!center || !packagePlanDetail) return null;
   const { token } = useAuth();
-  const nabagate = useNavigate();
-  const handleByPackage = async () => {
-    if (!pk?.id) {
-      toast.error("Not found that packages");
+  const navigate = useNavigate();
+  const [qrUrl, setQrUrl] = useState<string | null>(null); // State để lưu QR URL
+
+  const handleBuyPackage = async () => {
+    if (!pk?.id || !pk?.price) {
+      toast.error("Package not found");
       return;
     }
     if (!token) {
-      toast.error("Vui lòng đăng nhập để tiếp tục");
+      toast.error("Please log in to continue");
       setTimeout(() => {
-        nabagate("/auth");
+        navigate("/auth");
       }, 1500);
       return;
     }
+
     try {
       const payload: CreateOrderPayload = {
-        packagePlanId: pk?.id,
+        packagePlanId: pk.id,
         quantity: 1,
       };
 
       const order = await createOrder(payload);
+
       if (order) {
-        window.location.href = order.paymentUrl;
+        const amount = pk.price;
+        const accountNo = "0001478603300";
+        const accountName = "HUYNH THI QUE ANH";
+        const acqId = "970422";
+        const addInfo = encodeURIComponent(
+          `Payment for order #${order.orderId}`
+        );
+
+        const qrUrlGenerated = `https://img.vietqr.io/image/${acqId}-${accountNo}-R6zhNLf.png?amount=${amount}&addInfo=${addInfo}&accountName=${encodeURIComponent(
+          accountName
+        )}`;
+        setQrUrl(qrUrlGenerated);
+        toast.info("Please scan the QR code to complete your payment.", {
+          position: "top-right",
+          autoClose: 5000,
+        });
       }
-      console.log("Order:", order);
     } catch (error) {
-      toast.error("Không thể tạo order, vui lòng thử lại");
+      toast.error("Unable to create order, please try again");
     }
   };
-  // const testTmnCodes = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "https://095d26e56767.ngrok-free.app/api/dev/test-vnpay-tmn-codes",
-  //       {
-  //         method: "POST",
-  //         headers: { "Content-Type": "application/json" },
-  //         body: JSON.stringify({
-  //           amount: 55000,
-  //           orderId: "TMN_TEST_001",
-  //         }),
-  //       }
-  //     );
 
-  //     const result = await response.json();
-  //     console.log("TMN Codes Test:", result);
+  const handleCloseModal = () => {
+    setQrUrl(null);
+  };
 
-  //     // Test từng URL
-  //     if (result.success) {
-  //       const { testUrls } = result;
-
-  //       // Test từng TMN Code
-  //       Object.values(testUrls).forEach((testUrl) => {
-  //         console.log(`Testing TMN Code: ${testUrl.tmnCode}`);
-  //         console.log(`URL: ${testUrl.url}`);
-
-  //         // Mở URL trong tab mới
-  //         window.open(testUrl.url, "_blank");
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.error("TMN Codes test error:", error);
-  //   }
-  // };
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <div className="bg-card rounded-2xl shadow-lg border border-border overflow-hidden transform transition-all duration-300 hover:shadow-xl">
         <div
           className="bg-gradient-to-r from-primary to-secondary text-white p-6 flex items-center justify-between relative overflow-hidden"
           style={{
-            // backgroundImage: "url('/path-to-gym-image.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -104,10 +94,9 @@ const PackageDetailItem = ({
           <span className="text-sm md:text-base bg-green-500 px-4 py-2 rounded-full font-medium relative z-10">
             {pk?.durationMonths} months
           </span>
-          <div className="absolute inset-0 bg-black/40" />{" "}
+          <div className="absolute inset-0 bg-black/40" />
         </div>
 
-        {/* Content */}
         <div className="p-6 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-5 bg-foreground rounded-lg border border-border">
             <div className="space-y-4">
@@ -128,7 +117,6 @@ const PackageDetailItem = ({
             </div>
           </div>
 
-          {/* Center Info Grid */}
           <div className="grid grid-cols-1 gap-6 p-5 bg-foreground rounded-lg border border-border">
             <div className="space-y-4">
               <h3 className="text-lg font-semibold text-text-primary">
@@ -146,7 +134,6 @@ const PackageDetailItem = ({
             </div>
           </div>
 
-          {/* Service Info Grid */}
           <div className="grid grid-cols-1 gap-6 p-5 bg-foreground rounded-lg border border-border">
             <div className="space-y-4">
               <h3 className="text-lg font-semibold text-text-primary">
@@ -162,7 +149,7 @@ const PackageDetailItem = ({
               <p className="text-sm text-text-secondary flex items-center">
                 {packagePlanDetail.sessionsIncluded || "Not specified"}
               </p>
-              <div className="w-full h-px bg-border my-2" />{" "}
+              <div className="w-full h-px bg-border my-2" />
               <p className="text-sm text-text-muted italic">
                 * Includes free consultation
               </p>
@@ -171,11 +158,37 @@ const PackageDetailItem = ({
         </div>
 
         <div className="border-t border-border px-6 py-4 flex justify-end">
-          <Button variant={"primary"} onClick={() => handleByPackage()}>
+          <Button variant="primary" onClick={() => handleBuyPackage()}>
             Register Now
             <MoveRight size={18} />
           </Button>
         </div>
+
+        {/* Modal cho QR Code */}
+        {qrUrl && (
+          <Dialog open={!!qrUrl} onOpenChange={handleCloseModal}>
+            <DialogContent className="max-w-md">
+              <h3 className="text-lg font-semibold mb-2">
+                Please Complete Payment
+              </h3>
+              <img
+                src={qrUrl}
+                alt="Payment QR Code"
+                className="w-full h-auto rounded-lg mb-4"
+              />
+              <p className="text-sm text-text-secondary">
+                Please scan the QR code to complete your payment.
+              </p>
+              <Button
+                variant="secondary"
+                className="mt-4 w-full"
+                onClick={handleCloseModal}
+              >
+                Cancel
+              </Button>
+            </DialogContent>
+          </Dialog>
+        )}
       </div>
     </div>
   );

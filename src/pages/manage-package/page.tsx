@@ -15,6 +15,7 @@ import {
   Users,
   Package,
   BarChart3,
+  Store,
   Search,
   Plus,
   Edit,
@@ -33,6 +34,7 @@ import {
   fetchServicesByCenter,
   type PackageCreateData,
 } from "../../api/staff-manage";
+import OrderList from "./patials/OrderList";
 
 interface PackageData {
   id: number;
@@ -335,7 +337,7 @@ const ManagePackage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
       {/* Header */}
-      <header className="bg-gray-900/80 backdrop-blur-sm border-b border-gray-700">
+      <header className="bg-gray-900/80 backdrop-blur-sm b<Store />-b b<Store />-gray-700">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
@@ -363,6 +365,7 @@ const ManagePackage = () => {
             { id: "overview", label: "Overview", icon: BarChart3 },
             { id: "packages", label: "Package Management", icon: Package },
             { id: "users", label: "Service Management", icon: Users },
+            { id: "order", label: "Order Management", icon: Store },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -400,8 +403,8 @@ const ManagePackage = () => {
               <div
                 className={`p-4 rounded-lg flex items-center space-x-2 ${
                   messageType === "success"
-                    ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                    : "bg-red-500/20 text-red-400 border border-red-500/30"
+                    ? "bg-green-500/20 text-green-400 b<Store /> b<Store />-green-500/30"
+                    : "bg-red-500/20 text-red-400 b<Store /> b<Store />-red-500/30"
                 }`}
               >
                 <AlertCircle className="w-4 h-4" />
@@ -418,7 +421,7 @@ const ManagePackage = () => {
             )}
 
             {showForm && (
-              <Card className="bg-gray-800/50 border-gray-700 mb-6">
+              <Card className="bg-gray-800/50 b<Store />-gray-700 mb-6">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-white text-lg font-semibold">
@@ -441,7 +444,7 @@ const ManagePackage = () => {
                         placeholder="Package Name"
                         value={form.name}
                         onChange={handleChange}
-                        className="bg-gray-700 border-gray-600 text-white"
+                        className="bg-gray-700 b<Store />-gray-600 text-white"
                         required
                       />
                       <Input
@@ -449,7 +452,7 @@ const ManagePackage = () => {
                         placeholder="Description"
                         value={form.description}
                         onChange={handleChange}
-                        className="bg-gray-700 border-gray-600 text-white"
+                        className="bg-gray-700 b<Store />-gray-600 text-white"
                         required
                       />
                       <Input
@@ -458,7 +461,7 @@ const ManagePackage = () => {
                         placeholder="Price (VND)"
                         value={form.price}
                         onChange={handleChange}
-                        className="bg-gray-700 border-gray-600 text-white"
+                        className="bg-gray-700 b<Store />-gray-600 text-white"
                         required
                         min={0}
                       />
@@ -468,7 +471,7 @@ const ManagePackage = () => {
                         placeholder="Duration (months)"
                         value={form.durationMonths}
                         onChange={handleChange}
-                        className="bg-gray-700 border-gray-600 text-white"
+                        className="bg-gray-700 b<Store />-gray-600 text-white"
                         required
                         min={0}
                       />
@@ -477,7 +480,7 @@ const ManagePackage = () => {
                         name="centerId"
                         value={form.centerId}
                         onChange={handleChange}
-                        className="bg-gray-700 border-gray-600 text-white rounded-md px-3 py-2"
+                        className="bg-gray-700 b<Store />-gray-600 text-white rounded-md px-3 py-2"
                         required
                       >
                         <option value="">Select Center</option>
@@ -490,7 +493,7 @@ const ManagePackage = () => {
 
                       <div className="space-y-2">
                         <label className="text-white text-sm">Services:</label>
-                        <div className="max-h-32 overflow-y-auto bg-gray-700 border border-gray-600 rounded-md p-2">
+                        <div className="max-h-32 overflow-y-auto bg-gray-700 b<Store /> b<Store />-gray-600 rounded-md p-2">
                           {services.length > 0 ? (
                             services.map((service) => (
                               <label
@@ -526,7 +529,7 @@ const ManagePackage = () => {
                         name="isActive"
                         checked={form.isActive}
                         onChange={handleChange}
-                        className="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500"
+                        className="w-4 h-4 text-blue-600 bg-gray-700 b<Store />-gray-600 rounded focus:ring-blue-500"
                       />
                       <label htmlFor="isActive" className="text-white">
                         Active Package
@@ -549,7 +552,7 @@ const ManagePackage = () => {
                         type="button"
                         variant="outline"
                         onClick={resetForm}
-                        className="border-gray-600 text-gray-300 hover:bg-gray-700 bg-transparent"
+                        className="b<Store />-gray-600 text-gray-300 hover:bg-gray-700 bg-transparent"
                       >
                         Cancel
                       </Button>
@@ -560,7 +563,7 @@ const ManagePackage = () => {
             )}
 
             {/* Package List */}
-            <Card className="bg-gray-800/50 border-gray-700">
+            <Card className="bg-gray-800/50 b<Store />-gray-700">
               <CardContent className="p-6">
                 <div className="flex items-center space-x-4 mb-6">
                   <div className="relative flex-1">
@@ -569,7 +572,7 @@ const ManagePackage = () => {
                       placeholder="Search packages..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10 bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                      className="pl-10 bg-gray-700 b<Store />-gray-600 text-white placeholder-gray-400"
                     />
                   </div>
                   <Button
@@ -584,7 +587,7 @@ const ManagePackage = () => {
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
-                      <tr className="border-b border-gray-700">
+                      <tr className="b<Store />-b b<Store />-gray-700">
                         <th className="text-left text-gray-400 font-medium py-3">
                           ID
                         </th>
@@ -616,7 +619,7 @@ const ManagePackage = () => {
                         filteredPackages.map((pkg) => (
                           <tr
                             key={pkg.id}
-                            className="border-b border-gray-700/50 hover:bg-gray-700/30"
+                            className="b<Store />-b b<Store />-gray-700/50 hover:bg-gray-700/30"
                           >
                             <td className="py-4 text-gray-300">#{pkg.id}</td>
                             <td className="py-4 text-white font-medium">
@@ -723,8 +726,14 @@ const ManagePackage = () => {
           </div>
         )}
 
+        {activeTab === "order" && (
+          <div className="w-full">
+            <OrderList />
+          </div>
+        )}
+
         <Dialog open={showPackageDetail} onOpenChange={setShowPackageDetail}>
-          <DialogContent className="bg-gray-800 border-gray-700 text-white max-w-2xl">
+          <DialogContent className="bg-gray-800 text-white max-w-2xl">
             <DialogHeader>
               <DialogTitle className="text-xl font-bold text-white">
                 Package Details
@@ -794,7 +803,7 @@ const ManagePackage = () => {
                       <Badge
                         key={serviceId}
                         variant="outline"
-                        className="border-gray-600 text-gray-300"
+                        className="b<Store />-gray-600 text-gray-300"
                       >
                         Service #{serviceId}
                       </Badge>
@@ -815,7 +824,7 @@ const ManagePackage = () => {
                   <Button
                     variant="outline"
                     onClick={() => setShowPackageDetail(false)}
-                    className="border-gray-600 text-gray-300 hover:bg-gray-700"
+                    className="b<Store />-gray-600 text-gray-300 hover:bg-gray-700"
                   >
                     Close
                   </Button>
